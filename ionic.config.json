@@ -1,5 +1,7 @@
 {
   "name": "AntoBleScan",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
