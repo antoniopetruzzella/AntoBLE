@@ -8,7 +8,7 @@ import { NavController } from "@ionic/angular";
 })
 export class BLEService {
   nearestDeviceID:any=null;
-  
+  nearestDeviceName:string=null
   devices:any[];
   constructor(private ble:BLE,public navCtrl: NavController) { }
 
@@ -16,33 +16,20 @@ export class BLEService {
    
     this.devices = [];  // clear list
     console.log('inizio scansione');
-    /*this.ble.scan([],5).subscribe(
-      device => this.onDeviceDiscovered(device), 
-      error => this.scanError(error)
-    )*/
-    this.ble.startScan([]).subscribe(
+    this.ble.scan([],5).subscribe(
       device => {
         this.devices.push(device);
         console.log('device',JSON.stringify(device));
       
       }, 
-      error => this.scanError(error)
-    );
-    /*await this.ble.stopScan().then(()=>{
-      console.log('scan stopped');
-        return 
-      }
-    );  */
-
-
-    await setTimeout(this.ble.stopScan,5000,function(){
-      console.log('finita scansione');
-      return this.checkNearest();
-    },function(){
-      console.log('errore in stop scan')
-      return null;
-    });
-   
+      error =>{console.log('error in start scan')}
+    )
+   await new Promise(resolve=>{
+    setTimeout(resolve,5000);
+   })
+   //await setTimeout(this.checkNearest,5000);
+   await this.checkNearest();
+   return this.nearestDeviceName
    
   }
 
@@ -68,9 +55,9 @@ export class BLEService {
         console.log(nearestDevice);
         this.nearestDeviceID=nearestDevice.id;
         if(nearestDevice.name){
-          return nearestDevice.name;
+          this.nearestDeviceName=nearestDevice.name;
         }else{
-          return null;
+          this.nearestDeviceName=null;
         }
       }
       

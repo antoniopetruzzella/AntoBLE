@@ -17,17 +17,15 @@ export class NearestPage implements OnInit {
   }
 
   goScan(){
-      /*this.bles.scan().then(function(result){
-        console.log('trovato', result),
-        console.log('errore nella promise')
-        
-    });*/
-    this.devices = [];  // clear list
+    this.devices = [];
+    
     console.log('inizio scansione');
+     this.bles.scan().then(result=>this.nearestDeviceName=result);
+    
     /*this.ble.scan([],5).subscribe(
       device => this.onDeviceDiscovered(device), 
       error => this.scanError(error)
-    )*/
+    )
     this.ble.scan([],5).subscribe(
       device => {
         this.devices.push(device);
@@ -35,22 +33,22 @@ export class NearestPage implements OnInit {
       
       }, 
       error =>{console.log('error in start scan')}
-    );
+    );*/
     /*await this.ble.stopScan().then(()=>{
       console.log('scan stopped');
         return 
       }
     );  */
 
-    setTimeout(this.checkNearest.bind(this),5000);  
+   // setTimeout(this.checkNearest.bind(this),5000);  
    
-    console.log('finita scansione');
-    console.log(this.nearestDeviceName);
+  //  console.log('finita scansione');
+   
     
     
     
   }
-  checkNearest(){
+  /*checkNearest(){
      
     var dvs=this.devices.map(function(o){return o.rssi})
     var highestRSSI=Math.max.apply(Math,dvs);
@@ -65,5 +63,8 @@ export class NearestPage implements OnInit {
       }
     }
     
+  }*/
+  setDeviceNameresult(result){
+    this.nearestDeviceName=result;
   }
 }
