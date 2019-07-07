@@ -13,7 +13,7 @@ export class NearestPage implements OnInit {
   constructor(private ble:BLE, private bles: BLEService) { }
 
   ngOnInit() {
-    
+    this.goScan();
   }
 
   goScan(){
