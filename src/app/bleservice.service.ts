@@ -7,8 +7,9 @@ import { NavController } from "@ionic/angular";
   providedIn: 'root'
 })
 export class BLEService {
-  nearestDeviceID:any=null;
-  nearestDeviceName:string=null
+  //nearestDeviceID:any=null;
+  //nearestDeviceName:string=null
+  nearestDevice:any=null;
   devices:any[];
   constructor(private ble:BLE,public navCtrl: NavController) { }
 
@@ -29,8 +30,8 @@ export class BLEService {
    })
    //await setTimeout(this.checkNearest,5000);
    await this.checkNearest();
-   return this.nearestDeviceName
-   
+   //return this.nearestDeviceName
+   return this.nearestDevice;
   }
 
 
@@ -53,12 +54,15 @@ export class BLEService {
       var nearestDevice=this.devices.find(function (oo){return oo.rssi==highestRSSI});
       if(nearestDevice){
         console.log(nearestDevice);
-        this.nearestDeviceID=nearestDevice.id;
+        this.nearestDevice=nearestDevice;
+        /*this.nearestDeviceID=nearestDevice.id;
         if(nearestDevice.name){
           this.nearestDeviceName=nearestDevice.name;
         }else{
           this.nearestDeviceName=null;
-        }
+        }*/
+      }else{
+        this.nearestDevice=null;
       }
       
     }
