@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>seconda</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <button (click)="goScan()">inizia la scansione</button>
+  <div><span>{{nearestDeviceName}}</span></div>
+  <div>
+    <video width="320" height="240" controls>
+    <source src="assets/video.mp4" type="video/mp4">
+    
+  Your browser does not support the video tag.
+  </video>
+</div>
+</ion-content>

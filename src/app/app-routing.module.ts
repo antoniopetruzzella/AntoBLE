@@ -5,6 +5,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'nearest', pathMatch: 'full' },
   { path: 'home', loadChildren: './home/home.module#HomePageModule' },
   { path: 'nearest', loadChildren: './nearest/nearest.module#NearestPageModule' },
+  { path: 'seconda', loadChildren: './seconda/seconda.module#SecondaPageModule' },
 ];
 
 @NgModule({

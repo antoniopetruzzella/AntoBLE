@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BLE } from '@ionic-native/ble/ngx';
 import {BLEService} from '../../app/bleservice.service';
+import { NavController } from "@ionic/angular";
 
 @Component({
   selector: 'app-nearest',
@@ -10,7 +11,7 @@ import {BLEService} from '../../app/bleservice.service';
 export class NearestPage implements OnInit {
   devices:any[];
   nearestDeviceName:string=null;
-  constructor(private ble:BLE, private bles: BLEService) { }
+  constructor(private ble:BLE, private bles: BLEService,public navCtrl: NavController) { }
 
   ngOnInit() {
     this.goScan();
@@ -21,7 +22,14 @@ export class NearestPage implements OnInit {
     
     console.log('inizio scansione');
      this.bles.scan().then(result=>{
-       this.nearestDeviceName=result.id
+      if(result){ 
+      if(result.name!=this.nearestDeviceName){
+       this.nearestDeviceName=result.name
+       if(this.nearestDeviceName=='AntoBLE'){
+        this.navCtrl.navigateRoot('seconda')
+       }
+      }
+    }
         setTimeout(this.goScan.bind(this),1000);
       });
     
