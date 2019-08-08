@@ -37,20 +37,21 @@ export class HomePage {
      
           this.devices.push(device);
           this.ble.connect(device.id).subscribe( 
-          connectCallBack=>this.connectCallBack(connectCallBack),
+          connectCallBack=>this.connectCallBack(connectCallBack,device),
           disconnectCallback=>this.disconnectCallback(disconnectCallback)
+          
           )
-        
+            
      
     }
   }
-  connectCallBack(complex){
+  connectCallBack(complex,device){
     console.log('complex'+JSON.stringify(complex, null, 2))
     for(var i=0; i<complex.characteristics.length; i++){
-      if(complex.characteristics[i].characteristic=='beb5483e-36e1-4688-b7f5-ea07361b26a8')
+      if(complex.characteristics[i].characteristic=='beb5483e-36e1-4688-b7f5-ea07361b26a8') //SETTATO SU ESP32 CODICE: ANTO_BLE_SERVER
           this.ble.read(complex.id,complex.characteristics[i].service,complex.characteristics[i].characteristic).then(
         
-          data=>this.readCharacteristicValue(data)
+          data=>this.readCharacteristicValue(data,device)
         
           );
       
@@ -59,10 +60,11 @@ export class HomePage {
   disconnectCallback(complex){
 
   }
-  readCharacteristicValue(data){
+  readCharacteristicValue(data,device){
   
     this.ngZone.run(() => {
       this.valoretrovato=String.fromCharCode.apply(null, new Uint8Array(data));
+      this.ble.disconnect(device.id);
     });
     //this.ble.stopScan();
     

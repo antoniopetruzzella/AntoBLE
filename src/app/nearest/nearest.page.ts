@@ -8,6 +8,10 @@ import { NavController } from "@ionic/angular";
   templateUrl: './nearest.page.html',
   styleUrls: ['./nearest.page.scss'],
 })
+
+//QUESTA PAGINA USA IL SERVICE BLEService DA ME IMPLEMENTATO, SI FA RESTITUIRE IL BLE PIU' VICINO E NE USA LA PROPRIETA'
+//NAME PER DECIDERE IN CHE PAGINA NAVIGARE
+
 export class NearestPage implements OnInit {
   devices:any[];
   nearestDeviceName:string=null;
@@ -25,7 +29,7 @@ export class NearestPage implements OnInit {
       if(result){ 
       if(result.name!=this.nearestDeviceName){
        this.nearestDeviceName=result.name
-       if(this.nearestDeviceName=='AntoBLE'){
+       if(this.nearestDeviceName=='AntoBLE'){//SETTATO SU ESP32 CODICE: ANTO_BLE_SERVER
         this.navCtrl.navigateRoot('seconda')
        }
       }
